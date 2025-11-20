@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureVault - Password Manager</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="logo">
+            <h1>SecureVault</h1>
+            <p class="text-muted">Your secure password manager</p>
+        </div>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label for="loginEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="loginEmail" required>
+            </div>
+            <div class="mb-3">
+                <label for="loginPassword" class="form-label">Master Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="loginPassword" required>
+                    <span class="input-group-text toggle-password" id="toggleLoginPassword">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Unlock Vault</button>
+            </div>
+        </form>
+        <div class="mt-3 text-center">
+            <p>Don't have an account? <a href="#" id="showRegister">Register</a></p>
+        </div>
+    </div>
+
+    <!-- Register Screen -->
+    <div id="registerScreen" class="login-container" style="display: none;">
+        <div class="logo">
+            <h1>SecureVault</h1>
+            <p class="text-muted">Create your secure vault</p>
+        </div>
+        <form id="registerForm">
+            <div class="mb-3">
+                <label for="registerName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="registerName" required>
+            </div>
+            <div class="mb-3">
+                <label for="registerEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="registerEmail" required>
+            </div>
+            <div class="mb-3">
+                <label for="registerPassword" class="form-label">Master Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="registerPassword" required>
+                    <span class="input-group-text toggle-password" id="toggleRegisterPassword">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+                <div class="password-strength mt-2">
+                    <div class="strength-indicator">
+                        <div class="strength-bar" id="strengthBar1"></div>
+                        <div class="strength-bar" id="strengthBar2"></div>
+                        <div class="strength-bar" id="strengthBar3"></div>
+                        <div class="strength-bar" id="strengthBar4"></div>
+                    </div>
+                </div>
+                <div class="form-text">Use at least 8 characters with a mix of letters, numbers, and symbols.</div>
+            </div>
+            <div class="mb-3">
+                <label for="registerConfirmPassword" class="form-label">Confirm Master Password</label>
+                <input type="password" class="form-control" id="registerConfirmPassword" required>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Create Vault</button>
+            </div>
+        </form>
+        <div class="mt-3 text-center">
+            <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="app-container" style="display: none;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex align-items-center">
+                <h1 class="mb-0 me-3">SecureVault</h1>
+                <span class="badge bg-primary">PRO</span>
+            </div>
+            <div class="d-flex align-items-center">
+                <span id="userEmail" class="me-3">user@example.com</span>
+                <button id="logoutBtn" class="btn btn-outline-danger btn-sm">Logout</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <div class="mb-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control search-box" id="searchInput" placeholder="Search...">
+                            <span class="input-group-text bg-white">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-tab="passwords">
+                                <i class="fas fa-key me-2"></i> Passwords
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-tab="notes">
+                                <i class="fas fa-sticky-note me-2"></i> Secure Notes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-tab="generator">
+                                <i class="fas fa-magic me-2"></i> Password Generator
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-tab="settings">
+                                <i class="fas fa-cog me-2"></i> Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <!-- Passwords Tab -->
+                <div id="passwords" class="tab-content">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Saved Passwords</h5>
+                            <button class="btn btn-light btn-sm" id="addPasswordBtn">
+                                <i class="fas fa-plus me-1"></i> Add Password
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="passwordsList">
+                                <!-- Password items will be dynamically added here -->
+                                <div class="empty-state">
+                                    <i class="fas fa-key"></i>
+                                    <h4>No passwords saved yet</h4>
+                                    <p>Add your first password to get started</p>
+                                    <button class="btn btn-primary mt-2" id="addFirstPassword">Add Password</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes Tab -->
+                <div id="notes" class="tab-content" style="display: none;">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Secure Notes</h5>
+                            <button class="btn btn-light btn-sm" id="addNoteBtn">
+                                <i class="fas fa-plus me-1"></i> Add Note
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="notesList">
+                                <!-- Note items will be dynamically added here -->
+                                <div class="empty-state">
+                                    <i class="fas fa-sticky-note"></i>
+                                    <h4>No secure notes yet</h4>
+                                    <p>Add your first secure note to get started</p>
+                                    <button class="btn btn-primary mt-2" id="addFirstNote">Add Note</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generator Tab -->
+                <div id="generator" class="tab-content" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Password Generator</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="passwordLength" class="form-label">Password Length: <span id="lengthValue">12</span></label>
+                                        <input type="range" class="form-range" id="passwordLength" min="8" max="32" value="12">
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="includeUppercase" checked>
+                                            <label class="form-check-label" for="includeUppercase">
+                                                Include Uppercase Letters (A-Z)
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="includeLowercase" checked>
+                                            <label class="form-check-label" for="includeLowercase">
+                                                Include Lowercase Letters (a-z)
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="includeNumbers" checked>
+                                            <label class="form-check-label" for="includeNumbers">
+                                                Include Numbers (0-9)
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="includeSymbols">
+                                            <label class="form-check-label" for="includeSymbols">
+                                                Include Symbols (!@#$%^&*)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button class="btn btn-primary" id="generatePasswordBtn">Generate Password</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="generatedPassword" class="form-label">Generated Password</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="generatedPassword" readonly>
+                                            <button class="btn btn-outline-secondary" id="copyGeneratedPassword">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="password-strength mt-2">
+                                        <div class="strength-indicator">
+                                            <div class="strength-bar" id="genStrengthBar1"></div>
+                                            <div class="strength-bar" id="genStrengthBar2"></div>
+                                            <div class="strength-bar" id="genStrengthBar3"></div>
+                                            <div class="strength-bar" id="genStrengthBar4"></div>
+                                        </div>
+                                        <div class="mt-1 text-center small" id="passwordStrengthText">Strength: Good</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="settings" class="tab-content" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Settings</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h6>Security</h6>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="autoLock">
+                                    <label class="form-check-label" for="autoLock">
+                                        Auto-lock after 10 minutes of inactivity
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <h6>Data Management</h6>
+                                <p class="text-muted">Export your encrypted data for backup</p>
+                                <div class="export-options">
+                                    <button class="btn btn-outline-primary" id="exportData">
+                                        <i class="fas fa-download me-1"></i> Export Data
+                                    </button>
+                                    <button class="btn btn-outline-secondary" id="importData">
+                                        <i class="fas fa-upload me-1"></i> Import Data
+                                    </button>
+                                    <input type="file" id="importFile" style="display: none;" accept=".json">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <h6>Appearance</h6>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                                    <label class="form-check-label" for="darkModeToggle">
+                                        Dark Mode
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add Password Modal -->
+    <div class="modal fade" id="passwordModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passwordModalTitle">Add Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="passwordForm">
+                        <input type="hidden" id="passwordId">
+                        <div class="mb-3">
+                            <label for="passwordTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="passwordTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordUsername" class="form-label">Username/Email</label>
+                            <input type="text" class="form-control" id="passwordUsername">
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordValue" class="form-label">Password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="passwordValue" required>
+                                <span class="input-group-text toggle-password" id="toggleModalPassword">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                                <button class="btn btn-outline-secondary" type="button" id="generateForModal">
+                                    <i class="fas fa-magic"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordUrl" class="form-label">Website URL</label>
+                            <input type="url" class="form-control" id="passwordUrl">
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordNotes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="passwordNotes" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="savePasswordBtn">Save Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Note Modal -->
+    <div class="modal fade" id="noteModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="noteModalTitle">Add Secure Note</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="noteForm">
+                        <input type="hidden" id="noteId">
+                        <div class="mb-3">
+                            <label for="noteTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="noteTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="noteContent" class="form-label">Content</label>
+                            <textarea class="form-control" id="noteContent" rows="10" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveNoteBtn">Save Note</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- CryptoJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>

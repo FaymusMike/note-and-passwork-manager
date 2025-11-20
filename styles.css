@@ -1,0 +1,322 @@
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --success-color: #4cc9f0;
+    --dark-color: #1e1e2d;
+    --light-color: #f8f9fa;
+    --danger-color: #e63946;
+    --warning-color: #fca311;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fb;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-2px);
+}
+
+.sidebar {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    height: fit-content;
+}
+
+body.dark-mode .sidebar {
+    background-color: #1e1e2d;
+}
+
+.nav-link {
+    color: #555;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    background-color: rgba(67, 97, 238, 0.1);
+    color: var(--primary-color);
+}
+
+body.dark-mode .nav-link {
+    color: #bbb;
+}
+
+body.dark-mode .nav-link:hover, body.dark-mode .nav-link.active {
+    background-color: rgba(67, 97, 238, 0.2);
+    color: #8a9bff;
+}
+
+.password-strength {
+    height: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+}
+
+.strength-weak {
+    background-color: var(--danger-color);
+    width: 25%;
+}
+
+.strength-fair {
+    background-color: var(--warning-color);
+    width: 50%;
+}
+
+.strength-good {
+    background-color: #ff9f1c;
+    width: 75%;
+}
+
+.strength-strong {
+    background-color: #2a9d8f;
+    width: 100%;
+}
+
+.search-box {
+    border-radius: 50px;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.search-box:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+}
+
+body.dark-mode .search-box {
+    background-color: #2d2d3d;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+.password-item {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.password-item:hover {
+    background-color: rgba(67, 97, 238, 0.05);
+    transform: translateX(5px);
+}
+
+body.dark-mode .password-item:hover {
+    background-color: rgba(67, 97, 238, 0.1);
+}
+
+.note-item {
+    border-left: 4px solid var(--success-color);
+    padding-left: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.note-item:hover {
+    background-color: rgba(76, 201, 240, 0.05);
+    transform: translateX(5px);
+}
+
+body.dark-mode .note-item:hover {
+    background-color: rgba(76, 201, 240, 0.1);
+}
+
+.toggle-password {
+    cursor: pointer;
+    color: #777;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+}
+
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+body.dark-mode .login-container {
+    background-color: #1e1e2d;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo h1 {
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+}
+
+body.dark-mode .form-control {
+    background-color: #2d2d3d;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+.tab-content {
+    min-height: 500px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #777;
+}
+
+.empty-state i {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+body.dark-mode .empty-state {
+    color: #aaa;
+}
+
+.password-actions, .note-actions {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.password-item:hover .password-actions, 
+.note-item:hover .note-actions {
+    opacity: 1;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: #777;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+}
+
+.action-btn:hover {
+    color: var(--primary-color);
+}
+
+.strength-indicator {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.strength-bar {
+    height: 5px;
+    border-radius: 5px;
+    flex: 1;
+    background-color: #e0e0e0;
+}
+
+body.dark-mode .strength-bar {
+    background-color: #444;
+}
+
+.export-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        margin-bottom: 20px;
+    }
+    
+    .export-options {
+        flex-direction: column;
+    }
+}
